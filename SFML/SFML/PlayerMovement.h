@@ -5,13 +5,18 @@ class PlayerMovement
 {
 	sf::Vector2f Acceleration = sf::Vector2f(0.f,0.f);
 	sf::Vector2f Velocity = sf::Vector2f(0.f, 0.f);
-	sf::Vector2f AccelerationFactors = sf::Vector2f(100.f, 100.f);
+	sf::Vector2f AccelerationFactors = sf::Vector2f(100.f, 300.f);
+	bool Moving = false;
+	float currentTerminalVelocity = 100;
+	float walkingTerminalVelocity = 100;
+	float fastTerminalVelocity = 175;
+	bool Jumping = false;
 public:
 	void FrameRun(sf::RectangleShape& shape, float yCord);
 private:
 	void VerticalMovement(void);
 	void Gravity(void);
 	void Movement(sf::RectangleShape& shape, float yCord);
-	
+	void Jump(sf::RectangleShape &shape, float &yCord);
 };
 
