@@ -1,41 +1,43 @@
 #pragma once
+#include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include <filesystem>
 #include <iostream>
 class sprite {
-	std::string srcDir = __FILE__;
-	sf::Texture Brick;
-	sf::Texture BreakableBrick;
-	sf::Texture Coin;
-	sf::Texture FlagL;
-	sf::Texture Brick;
-	sf::Texture Flagpole;
-	sf::Texture FlagR;
-	sf::Texture Goomba;
-	sf::Texture LuckyBlock;
-	sf::Texture OtherBrick;
-	sf::Texture PipeBL;
-	sf::Texture PipeBR;
-	sf::Texture PipeTL;
-	sf::Texture PipeTR;
-	sf::Texture Sky;
-	sf::Texture TopFlag;
-	sprite() {
-		std::string filePath = __FILE__;
-		Brick.loadFromFile(filePath + "\\Tiles\\Brick.png");
-		BreakableBrick.loadFromFile(filePath + "\\Tiles\\BreakableBrick.png");
-		Coin.loadFromFile(filePath + "\\Tiles\\Coin.png");
-		FlagL.loadFromFile(filePath + "\\Tiles\\FlagL.png");
-		Flagpole.loadFromFile(filePath + "\\Tiles\\Flagpole.png");
-		FlagR.loadFromFile(filePath + "\\Tiles\\FlagR.png");
-		Goomba.loadFromFile(filePath + "\\Tiles\\Goomba.png");
-		LuckyBlock.loadFromFile(filePath + "\\Tiles\\LuckyBlock.png");
-		OtherBrick.loadFromFile(filePath + "\\Tiles\\OtherBrick.png");
-		PipeBL.loadFromFile(filePath + "\\Tiles\\PipeBL.png");
-		PipeBR.loadFromFile(filePath + "\\Tiles\\PipeBR.png");
-		PipeTL.loadFromFile(filePath + "\\Tiles\\PipeTL.png");
-		PipeTR.loadFromFile(filePath + "\\Tiles\\PipeTR.png");
-		Sky.loadFromFile(filePath + "\\Tiles\\Sky.png");
-		TopFlag.loadFromFile(filePath + "\\Tiles\\TopFlag.png");
+public:
+	const sf::Texture Brick;
+	const sf::Texture BreakableBrick;
+	const sf::Texture Coin;
+	const sf::Texture FlagL;
+	const sf::Texture Flagpole;
+	const sf::Texture FlagR;
+	const sf::Texture Goomba;
+	const sf::Texture LuckyBlock;
+	const sf::Texture OtherBrick;
+	const sf::Texture PipeBL;
+	const sf::Texture PipeBR;
+	const sf::Texture PipeTL;
+	const sf::Texture PipeTR;
+	const sf::Texture Sky;
+	const sf::Texture TopFlag;
+	sprite()
+		: Brick(std::filesystem::path("Tiles/Brick.png"))
+		, BreakableBrick(std::filesystem::path("Tiles/BreakableBrick.png"))
+		, Coin(std::filesystem::path("Tiles/Coin.png"))
+		, FlagL(std::filesystem::path("Tiles/FlagL.png"))
+		, Flagpole(std::filesystem::path("Tiles/Flagpole.png"))
+		, FlagR(std::filesystem::path("Tiles/FlagR.png"))
+		, Goomba(std::filesystem::path("Tiles/Goomba.png"))
+		, LuckyBlock(std::filesystem::path("Tiles/LuckyBlock.png"))
+		, OtherBrick(std::filesystem::path("Tiles/OtherBrick.png"))
+		, PipeBL(std::filesystem::path("Tiles/PipeBL.png"))
+		, PipeBR(std::filesystem::path("Tiles/PipeBR.png"))
+		, PipeTL(std::filesystem::path("Tiles/PipeTL.png"))
+		, PipeTR(std::filesystem::path("Tiles/PipeTR.png"))
+		, Sky(std::filesystem::path("Tiles/Sky.png"))
+		, TopFlag(std::filesystem::path("Tiles/TopFlag.png"))
+	{
+
+
 	}
 };
