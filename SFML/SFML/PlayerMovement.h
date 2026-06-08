@@ -31,6 +31,9 @@ public:
 	bool died = false;
 	bool sentPowerup = false;
 	bool sentCoin = false;
+	sf::Vector2f& getVelocity() {
+		return Velocity;
+	}
 	sf::Vector2f JustHitBlock;
 	int FrameRun(sf::Sprite &shape, float yCord, std::vector<std::vector<sf::Sprite>>& Sprites, 
 		sprite &s, std::vector<Enemy>& Enemies, sf::Sprite &powerupOnScreen, sf::View cam, 

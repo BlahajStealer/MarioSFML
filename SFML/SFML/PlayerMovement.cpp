@@ -2,52 +2,56 @@
 
 using namespace std;
 
-int PlayerMovement::FrameRun(sf::Sprite &shape, float yCord, std::vector<std::vector<sf::Sprite>>& sp, 
-    sprite &s, std::vector<Enemy>& Enemies, sf::Sprite& powerupOnScreen, sf::View cam, int currentLevel
-,bool MovingPower) {
+int PlayerMovement::FrameRun(sf::Sprite& shape, float yCord, std::vector<std::vector<sf::Sprite>>& sp,
+    sprite& s, std::vector<Enemy>& Enemies, sf::Sprite& powerupOnScreen, sf::View cam, int currentLevel, bool MovingPower) {
 
     VerticalMovement(shape, s);
+    Jump(shape, yCord, s);
 
     Gravity();
-
-    Jump(shape, yCord, s);
 
     int whatDidYouHit = Movement(shape, yCord, sp, s, Enemies, powerupOnScreen, cam, currentLevel, MovingPower);
 
     return whatDidYouHit;
 }
-void PlayerMovement::marioSizeChange(bool inc, sf::Sprite &shape, sprite &s) { //true = up, false = down
+void PlayerMovement::marioSizeChange(bool inc, sf::Sprite& shape, sprite& s) { //true = up, false = down
+    sf::Vector2f currentScale = shape.getScale();
+
     if (inc) {
         a.powerup.play();
         MarioSize++;
         if (MarioSize == 1) {
-            sf::Sprite temp(s.Mario, sf::IntRect({ 0, 0 }, { 16,32 }));
-            temp.setPosition({ shape.getPosition().x, shape.getPosition().y - 16 });
-            shape = temp;
+            shape.setTexture(s.Mario, false);
+            shape.setTextureRect(sf::IntRect({ 0, 0 }, { 16, 32 }));
             
+            shape.setPosition({ shape.getPosition().x, shape.getPosition().y  - 16.f});
+            
+
         }
         else if (MarioSize == 2) {
-            shape.setTexture(s.Firemario);
+            shape.setTexture(s.Firemario, false);
+            shape.setTextureRect(sf::IntRect({ 0, 0 }, { 16, 32 }));
         }
-
     }
     else {
         a.powerdown.play();
-
         MarioSize--;
+
         if (MarioSize < 0) {
             Died = true;
         }
         else if (MarioSize == 0) {
-            sf::Sprite temp(s.SmallMario, sf::IntRect({ 0, 0 }, { 16,16 }));
-            temp.setPosition({shape.getPosition().x, shape.getPosition().y + 16.f});
-            shape = temp;
+            shape.setTexture(s.SmallMario, false);
+            shape.setTextureRect(sf::IntRect({ 0, 0 }, { 16, 16 }));
+            shape.setPosition({ shape.getPosition().x, shape.getPosition().y + 16.f});
         }
         else if (MarioSize == 1) {
-            shape.setTexture(s.Mario);
+            shape.setTexture(s.Mario, false);
+            shape.setTextureRect(sf::IntRect({ 0, 0 }, { 16, 32 }));
         }
     }
 
+    shape.setScale(currentScale);
 }
 void PlayerMovement::VerticalMovement(sf::Sprite &shape, sprite &s) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
@@ -73,16 +77,11 @@ void PlayerMovement::VerticalMovement(sf::Sprite &shape, sprite &s) {
         if (Velocity.x < 4.f && Velocity.x > -4.f && !Moving) {
             if (Grounded) {
                 switch (MarioSize) {
-                case 0:
-                    shape.setTexture(s.SmallMario);
-                    break;
-                case 1:
-                    shape.setTexture(s.Mario);
-                    break;
-                case 2:
-                    shape.setTexture(s.Firemario);
-                    break;
+                case 0: shape.setTexture(s.SmallMario, false); break;
+                case 1: shape.setTexture(s.Mario, false); break;
+                case 2: shape.setTexture(s.Firemario, false); break;
                 }
+                
             }
             Acceleration = sf::Vector2f(0, Acceleration.y);
             Velocity.x = 0.f;
@@ -204,9 +203,9 @@ void PlayerMovement::Gravity(void) {
     }
     
 }
-int PlayerMovement::Movement(sf::Sprite &shape, float yCord,
-    std::vector<std::vector<sf::Sprite>>& Sprites, sprite &s,
-    std::vector<Enemy> &enemies, sf::Sprite& powerupOnScreen,
+int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
+    std::vector<std::vector<sf::Sprite>>& Sprites, sprite& s,
+    std::vector<Enemy>& enemies, sf::Sprite& powerupOnScreen,
     sf::View cam, int currentLevel, bool movingPower) {
     int WhatDidYouHit = 0;
 
@@ -217,7 +216,6 @@ int PlayerMovement::Movement(sf::Sprite &shape, float yCord,
         }
         else {
             Fireballs[i].moveFireball(s, Sprites, cam);
-
         }
     }
 
@@ -228,108 +226,199 @@ int PlayerMovement::Movement(sf::Sprite &shape, float yCord,
     else {
         currentTerminalVelocity = walkingTerminalVelocity;
         Sprinting = false;
-
     }
+
     if (Velocity.x > currentTerminalVelocity || Velocity.x < -currentTerminalVelocity) {
-        
-        Velocity.x = Velocity.x > 0 ? Velocity.x = currentTerminalVelocity : Velocity.x = -currentTerminalVelocity;
+        Velocity.x = Velocity.x > 0 ? currentTerminalVelocity : -currentTerminalVelocity;
     }
     else {
         Velocity += Acceleration / 60.f;
-
     }
+
     shape.move(sf::Vector2f(Velocity.x / 60.f, 0));
 
+    int playerTileX = static_cast<int>(shape.getPosition().x / 16.f);
+    int playerTileY = static_cast<int>(shape.getPosition().y / 16.f);
 
-    for (int i = 0; i < size(Sprites); i++) {
+    int startY = std::max(0, playerTileY - 2);
+    int endY = std::min(static_cast<int>(std::size(Sprites)) - 1, playerTileY + 2);
+    int startX = std::max(0, playerTileX - 2);
+    int endX = std::min(static_cast<int>(std::size(Sprites[0])) - 1, playerTileX + 3);
 
-        for (int f = 0; f < size(Sprites[0]); f++) {
-
+    for (int i = startY; i <= endY; i++) {
+        for (int f = startX; f <= endX; f++) {
             sf::FloatRect shapeBounds = getHitbox(shape);
             sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
-            if ((& Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.FlagL)) {
+
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.FlagL) {
                 continue;
             }
             else if (shapeBounds.findIntersection(spriteBounds)) {
                 float previousLeft = shapeBounds.position.x - Velocity.x / 60.f;
                 float previousRight = previousLeft + shapeBounds.size.x;
 
+                bool wasOutsideX = (previousRight <= spriteBounds.position.x || previousLeft >= (spriteBounds.position.x + spriteBounds.size.x));
 
-                bool wasOutsideX = (previousRight <= spriteBounds.position.x 
-                    || previousLeft >= (spriteBounds.position.x + spriteBounds.size.x));
-
-
-                if (wasOutsideX) { //Collided on the X
-
-                    std::cout << "Collided On X!!";
+                if (wasOutsideX) {
                     if (&Sprites[i][f].getTexture() == &s.Coin) {
                         WhatDidYouHit = 3;
-                        if (currentLevel == 0) {
-                            Sprites[i][f].setTexture(s.Sky);
-
-                        }
-                        else if (currentLevel == 1) {
-                            Sprites[i][f].setTexture(s.SkyUG);
-
-                        }
+                        Sprites[i][f].setTexture(currentLevel == 0 ? s.Sky : s.SkyUG);
                     }
                     else if (&Sprites[i][f].getTexture() == &s.PipeBLSWD || &Sprites[i][f].getTexture() == &s.PipeTLSWD) {
                         WhatDidYouHit = 5;
                     }
-                    else if (&Sprites[i][f].getTexture() == &s.Flagpole || &Sprites[i][f].getTexture() == &s.FlagR || &Sprites[i][f].getTexture() == &s.FlagL || &Sprites[i][f].getTexture() == &s.TopFlag) {
+                    else if (&Sprites[i][f].getTexture() == &s.Flagpole || &Sprites[i][f].getTexture() == &s.FlagR || &Sprites[i][f].getTexture() == &s.TopFlag) {
                         WhatDidYouHit = 6;
-                        Velocity = {0.f, 0.f};
+                        Velocity = { 0.f, 0.f };
                     }
                     else {
                         shape.move(sf::Vector2f(-Velocity.x / 60.f, 0));
                         Velocity.x = 0;
                     }
                 }
-                  
             }
-
-            
         }
     }
 
     shape.move(sf::Vector2f(0, Velocity.y / 60.f));
+    playerTileX = static_cast<int>(shape.getPosition().x / 16.f);
+    playerTileY = static_cast<int>(shape.getPosition().y / 16.f);
+
+    startY = std::max(0, playerTileY - 2);
+    endY = std::min(static_cast<int>(std::size(Sprites)) - 1, playerTileY + 2);
+    startX = std::max(0, playerTileX - 2);
+    endX = std::min(static_cast<int>(std::size(Sprites[0])) - 1, playerTileX + 3);
+    bool yCollided = false;
+
+    for (int i = startY; i <= endY; i++) {
+        for (int f = startX; f <= endX; f++) {
+            sf::FloatRect shapeBounds = getHitbox(shape);
+            sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
+
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.FlagL) {
+
+                continue;
+            }
+            else if (shapeBounds.findIntersection(spriteBounds)) {
+                float previousTop = shapeBounds.position.y - Velocity.y / 60.f;
+                float previousBottom = previousTop + shapeBounds.size.y;
+
+                bool wasOutsideY = (previousBottom <= spriteBounds.position.y || previousTop >= (spriteBounds.position.y + spriteBounds.size.y));
+
+                if (wasOutsideY) {
+                    yCollided = true;
+                    if (&Sprites[i][f].getTexture() == &s.Coin) {
+                        WhatDidYouHit = 3;
+                        switch (currentLevel) {
+                        case 0:
+                            Sprites[i][f].setTexture(s.Sky);
+                            break;
+                        case 1:
+                            Sprites[i][f].setTexture(s.SkyUG);
+                            break;
+
+                        }
+                    }
+                    else {
+                        if (Velocity.y >= 0) {
+                            Grounded = true;
+                            Jumping = false;
+                            Velocity.y = 0;
+
+                            shape.setPosition({ shape.getPosition().x, spriteBounds.position.y - shapeBounds.size.y });
+
+                            if ((&shape.getTexture() == &s.FiremarioJump || &shape.getTexture() == &s.MarioJump || &shape.getTexture() == &s.SmallMarioJump) && !movingPower) {
+                                switch (MarioSize) {
+                                case 0: shape.setTexture(s.SmallMario); break;
+                                case 1: shape.setTexture(s.Mario); break;
+                                case 2: shape.setTexture(s.Firemario); break;
+                                }
+                            }
+                            if (Crouching && (&Sprites[i][f].getTexture() == &s.PipeTLD || &Sprites[i][f].getTexture() == &s.PipeTRD)) {
+                                WhatDidYouHit = 5;
+                                if (&Sprites[i][f].getTexture() == &s.PipeTLD) {
+                                    MarioSize == 0 ?
+                                        shape.setPosition({ Sprites[i][f].getPosition().x + 16.f, Sprites[i][f].getPosition().y - 16 })
+                                    :
+                                        shape.setPosition({ Sprites[i][f].getPosition().x + 16.f, Sprites[i][f].getPosition().y - 32 });
+
+                                }
+                                else {
+                                    MarioSize == 0 ?
+                                        shape.setPosition({ Sprites[i][f].getPosition().x, Sprites[i][f].getPosition().y - 16 })
+                                        :
+                                        shape.setPosition({ Sprites[i][f].getPosition().x, Sprites[i][f].getPosition().y - 32 });
+
+                                }
+                            }
+                            else {
+                                shape.move({ 0, -Velocity.y / 60.f });
+                            }
+                        }
+                        else {
+                            shape.setPosition({ shape.getPosition().x, spriteBounds.position.y + spriteBounds.size.y });
+                            Velocity.y = 0;
+                            Grounded = false;
+                            JumpingFrames = 31;
+
+                            sf::Sprite tempSprite = sf::Sprite(s.Sky, sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(16, 16)));
+                            tempSprite.setPosition(Sprites[i][f].getPosition());
+
+                            if ((&Sprites[i][f].getTexture() == &s.BreakableBrick || &Sprites[i][f].getTexture() == &s.BreakableBrickUG) && MarioSize != 0) {
+                                tempSprite.setTexture(currentLevel == 0 ? s.Sky : s.SkyUG);
+                                Sprites[i][f] = tempSprite;
+                                WhatDidYouHit = 1;
+                            }
+                            else if (&Sprites[i][f].getTexture() == &s.LuckyBlock) {
+                                tempSprite.setTexture(s.CoinedLB);
+                                sentCoin = true;
+                                JustHitBlock = tempSprite.getPosition();
+                                Sprites[i][f] = tempSprite;
+                                WhatDidYouHit = 2;
+                            }
+                            else if (&Sprites[i][f].getTexture() == &s.LuckyBlockPU) {
+                                tempSprite.setTexture(s.CoinedLB);
+                                switch (MarioSize) {
+                                case 0: powerupOnScreen.setTexture(s.Mushroom); break;
+                                default: powerupOnScreen.setTexture(s.Fireflower); break;
+                                }
+                                sentPowerup = true;
+                                powerupOnScreen.setPosition(Sprites[i][f].getPosition());
+                                Sprites[i][f] = tempSprite;
+                                WhatDidYouHit = 4;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+
     for (int i = 0; i < std::size(enemies); i++) {
         sf::FloatRect shapeBounds = getHitbox(shape);
         sf::FloatRect enemyBounds = enemies[i].getSprite().getGlobalBounds();
         if (auto intersection = shapeBounds.findIntersection(enemyBounds)) {
             float previousBottom = (shapeBounds.position.y - Velocity.y / 60.f) + shapeBounds.size.y;
             bool wasAbove = previousBottom <= enemyBounds.position.y;
-            bool hittingTopHalf = intersection->position.y < enemyBounds.position.y + enemyBounds.size.y / 2.f;
-            if (wasAbove || Velocity.y > 30.f || Velocity.y < -30.f) {
+            if (wasAbove || Velocity.y > 30.f) {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M)) {
-                    if (Velocity.y > 0) {
-                        Velocity.y = -200;
-
-                    }
-                    else {
-                        Velocity.y -= 75;
-                    }
+                    Velocity.y = (Velocity.y > 0) ? -200 : Velocity.y - 75;
                 }
                 else {
-                    if (Velocity.y > 0) {
-                        Velocity.y = -150;
-
-                    }
-                    else {
-                        Velocity.y -= 60;
-                    }
-                    
+                    Velocity.y = (Velocity.y > 0) ? -150 : Velocity.y - 60;
                 }
-                enemies[i].setSprite().setPosition({ 10000000.f, 10000000.f }); // stomped
+                enemies[i].setSprite().setPosition({ 10000000.f, 10000000.f });
             }
         }
     }
+
     if (!invincible) {
         for (int i = 0; i < std::size(enemies); i++) {
             sf::FloatRect shapeBounds = getHitbox(shape);
             sf::FloatRect enemyBounds = enemies[i].getSprite().getGlobalBounds();
             if (auto intersection = shapeBounds.findIntersection(enemyBounds)) {
-                if (intersection->size.x < intersection->size.y) { // side collision
+                if (intersection->size.x < intersection->size.y) {
                     marioSizeChange(false, shape, s);
                     switchInvincible();
                 }
@@ -337,125 +426,8 @@ int PlayerMovement::Movement(sf::Sprite &shape, float yCord,
         }
     }
 
-    bool yCollided = false;
-    for (int i = 0; i < size(Sprites); i++) {
-        for (int f = 0; f < size(Sprites[0]); f++) {
-
-            sf::FloatRect shapeBounds = getHitbox(shape);
-            sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.Coin || &Sprites[i][f].getTexture() == &s.FlagL) {
-                continue;
-            }
-            else if (shapeBounds.findIntersection(spriteBounds)) {
-                float previousTop = shapeBounds.position.y - Velocity.y / 60.f;
-                float previousBottom = previousTop + shapeBounds.size.y;
-
-                bool wasOutsideY = (previousTop <= spriteBounds.position.y 
-                    || previousTop >= (spriteBounds.position.y + spriteBounds.size.y));
-
-                if (wasOutsideY) { //Collided on the Y
-                    shape.move(sf::Vector2f(0, -Velocity.y / 60.f));
-                    yCollided = true;
-                    if (&shape.getTexture() == &s.Coin) {
-                        WhatDidYouHit = 3;
-                        if (currentLevel == 0) {
-                            Sprites[i][f].setTexture(s.Sky);
-
-                        }
-                        else if (currentLevel == 1) {
-                            Sprites[i][f].setTexture(s.SkyUG);
-
-                        }
-                    }
-                    if (Velocity.y >= 0) { //Collided going down
-                        Grounded = true;
-                        Jumping = false;
-                        if ((&shape.getTexture() == &s.FiremarioJump || &shape.getTexture() == &s.MarioJump || &shape.getTexture() == &s.SmallMarioJump) && !movingPower)
-                            switch (MarioSize) {
-                            case 0:
-                                shape.setTexture(s.SmallMario);
-                                break;
-                            case 1:
-                                shape.setTexture(s.Mario);
-                                break;
-                            case 2:
-                                shape.setTexture(s.Firemario);
-                                break;
-                            }
-                        if (Crouching && (&Sprites[i][f].getTexture() == &s.PipeTLD || &Sprites[i][f].getTexture() == &s.PipeTRD)) {
-                            WhatDidYouHit = 5;
-                        }
-                    }
-                    else { //Collided going up
-                        sf::Sprite tempSprite = sf::Sprite(s.Sky, sf::IntRect(
-                            sf::Vector2i(0, 0),
-                            sf::Vector2i(16, 16)));
-                        tempSprite.setPosition(Sprites[i][f].getPosition());
-
-                        if ((&Sprites[i][f].getTexture() == &s.BreakableBrick || &Sprites[i][f].getTexture() == &s.BreakableBrickUG) && MarioSize != 0) {
-                            if (currentLevel == 0) {
-                                tempSprite.setTexture(s.Sky);
-
-                            }
-                            else if (currentLevel == 1) {
-                                tempSprite.setTexture(s.SkyUG);
-
-                            }
-                            Sprites[i][f] = tempSprite;
-                            WhatDidYouHit = 1;
-                        }
-                        else if (&Sprites[i][f].getTexture() == &s.LuckyBlock) {
-                            tempSprite.setTexture(s.CoinedLB);
-                            sentCoin = true;
-                            JustHitBlock = tempSprite.getPosition();
-                            Sprites[i][f] = tempSprite;
-                            WhatDidYouHit = 2;
-
-                        }
-                        else if (&Sprites[i][f].getTexture() == &s.LuckyBlockPU) {
-                            tempSprite.setTexture(s.CoinedLB);
-                            switch (MarioSize) {
-                            case 0:
-                                powerupOnScreen.setTexture(s.Mushroom);
-                                break;
-                            case 1:
-                            case 2:
-                                powerupOnScreen.setTexture(s.Fireflower);
-                                break;
-
-                            default:
-                                powerupOnScreen.setTexture(s.Mushroom);
-                                break;
-
-                            }
-                            sentPowerup = true;
-                            powerupOnScreen.setPosition(sf::Vector2f(Sprites[i][f].getPosition().x, (Sprites[i][f].getPosition().y)));
-                            Sprites[i][f] = tempSprite;
-                            WhatDidYouHit = 4;
-                        }
-                        Grounded = false;
-                        JumpingFrames = 31;
-
-                    }
-                    break;
-                    Velocity.y = 0;
-                    
-
-                }
-                else {
-                    Grounded = false;
-                }
-                
-                    
-            }
-            
-
-            
-        }
-    }
     if (MarioSize == 2) {
         fireflower(s, shape);
-
     }
 
     if (shape.getPosition().y > 270) {
@@ -463,18 +435,14 @@ int PlayerMovement::Movement(sf::Sprite &shape, float yCord,
         marioSizeChange(false, shape, s);
         Died = true;
     }
-    if (yCollided) {
+
+    if (yCollided && Velocity.y == 0) {
         Grounded = true;
     }
     else {
         Grounded = false;
     }
 
-
-
-    std::cout << "Velocity: " << Velocity.x << ", " << Velocity.y << endl;
-    std::cout << "Acceleration: " << Acceleration.x << ", " << Acceleration.y << endl;
-    std::cout << "Grounded >> " << Grounded << std::endl;
     return WhatDidYouHit;
 }
 void PlayerMovement::Jump(sf::Sprite &shape, float &yCord, sprite &s) {
@@ -511,6 +479,9 @@ void PlayerMovement::Jump(sf::Sprite &shape, float &yCord, sprite &s) {
         JumpingFrames++;
     }
     
+
+
+
 }
 sf::FloatRect PlayerMovement::getHitbox(sf::Sprite player) {
     sf::FloatRect bounds = player.getGlobalBounds();
@@ -543,29 +514,28 @@ void PlayerMovement::fireflower(sprite &s, sf::Sprite shape) {
     }
 }
 
-void PlayerMovement::WalkingAnim(sprite &s, sf::Sprite &shape) {
+void PlayerMovement::WalkingAnim(sprite& s, sf::Sprite& shape) {
     framesPast++;
     if (framesPast >= 4) {
         switch (MarioSize) {
         case 0:
             switch (next) {
             case 1:
-                shape.setTexture(s.SmallMarioWalk1);
+                shape.setTexture(s.SmallMarioWalk1, false);
                 next++;
                 break;
             case 2:
                 if (&shape.getTexture() == &s.SmallMarioWalk3) {
                     next--;
-
                 }
                 else {
-                    shape.setTexture(s.SmallMarioWalk3);
+                    shape.setTexture(s.SmallMarioWalk3, false); 
                     next++;
                 }
-                shape.setTexture(s.SmallMarioWalk2);
+                shape.setTexture(s.SmallMarioWalk2, false); 
                 break;
             case 3:
-                shape.setTexture(s.SmallMarioWalk3);
+                shape.setTexture(s.SmallMarioWalk3, false); 
                 next--;
                 break;
             }
@@ -573,22 +543,21 @@ void PlayerMovement::WalkingAnim(sprite &s, sf::Sprite &shape) {
         case 1:
             switch (next) {
             case 1:
-                shape.setTexture(s.MarioWalk1);
+                shape.setTexture(s.MarioWalk1, false);
                 next++;
                 break;
             case 2:
                 if (&shape.getTexture() == &s.MarioWalk3) {
                     next--;
-
                 }
                 else {
-                    shape.setTexture(s.MarioWalk3);
+                    shape.setTexture(s.MarioWalk3, false);
                     next++;
                 }
-                shape.setTexture(s.MarioWalk2);
+                shape.setTexture(s.MarioWalk2, false); 
                 break;
             case 3:
-                shape.setTexture(s.MarioWalk3);
+                shape.setTexture(s.MarioWalk3, false); 
                 next--;
                 break;
             }
@@ -596,22 +565,21 @@ void PlayerMovement::WalkingAnim(sprite &s, sf::Sprite &shape) {
         case 2:
             switch (next) {
             case 1:
-                shape.setTexture(s.FiremarioWalk1);
+                shape.setTexture(s.FiremarioWalk1, false); 
                 next++;
                 break;
             case 2:
                 if (&shape.getTexture() == &s.FiremarioWalk3) {
                     next--;
-
                 }
                 else {
-                    shape.setTexture(s.FiremarioWalk3);
+                    shape.setTexture(s.FiremarioWalk3, false); 
                     next++;
                 }
-                shape.setTexture(s.FiremarioWalk2);
+                shape.setTexture(s.FiremarioWalk2, false); 
                 break;
             case 3:
-                shape.setTexture(s.FiremarioWalk3);
+                shape.setTexture(s.FiremarioWalk3, false); 
                 next--;
                 break;
             }
@@ -619,29 +587,28 @@ void PlayerMovement::WalkingAnim(sprite &s, sf::Sprite &shape) {
         }
         framesPast = 0;
     }
-
-
 }
-void PlayerMovement::StoppingAnim(sprite &s, sf::Sprite &shape) {
+void PlayerMovement::StoppingAnim(sprite& s, sf::Sprite& shape) {
     switch (MarioSize) {
     case 0:
-        shape.setTexture(s.SmallMarioStop);
+        shape.setTexture(s.SmallMarioStop, false); 
         break;
     case 1:
-        shape.setTexture(s.MarioStopping);
+        shape.setTexture(s.MarioStopping, false); 
         break;
     case 2:
-        shape.setTexture(s.FiremarioStopping);
+        shape.setTexture(s.FiremarioStopping, false);
         break;
     }
 }
-void PlayerMovement::CrouchedAnim(sprite &s, sf::Sprite &shape) {
+
+void PlayerMovement::CrouchedAnim(sprite& s, sf::Sprite& shape) {
     switch (MarioSize) {
     case 1:
-        shape.setTexture(s.MarioCrouched);
+        shape.setTexture(s.MarioCrouched, false);
         break;
     case 2:
-        shape.setTexture(s.FiremarioCrouched);
+        shape.setTexture(s.FiremarioCrouched, false);
         break;
     }
 }

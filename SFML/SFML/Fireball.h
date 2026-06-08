@@ -15,8 +15,7 @@ public:
 	{
 		dir = plDir;
 	}
-	void moveFireball(sprite& s, std::vector<std::vector<sf::Sprite>> Sprites, sf::View cam);
-	sf::Sprite fb;
+	void moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>>& Sprites, sf::View cam);	sf::Sprite fb;
 	int dir = -1;
 	int ydir = 1;
 	bool Kill = false;

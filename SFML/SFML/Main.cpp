@@ -58,6 +58,12 @@ int main()
     float maxCoinHeight;
     bool switchingLevels = false;
     sf::Sprite spareCoin(b.s.Coin);
+    bool goingDown = false;
+    int goingDownFrames = 0;
+    bool comingUp = false;
+    bool hitFlagPole = false;
+    bool walkAway = false;
+    int walkAwayFrames = false;
     while (window.isOpen())
     {
         shape.setOrigin(sf::Vector2f(8.f, 0.f));
@@ -130,36 +136,19 @@ int main()
                 a.item.play();
                 break;
             case 5:
-                a.Overworld.stop();
-                Goombas.clear();
-
-                currentArea = 1;
+                goingDown = true;
                 a.powerdown.play();
-                subArea = true;
-                musicPlaying = false;
-                b.getSprites().clear();
-                b.fillSubBoard();
-                shape.setPosition({ 48.f, 32.f });
-                pm.resetVelocity();
 
                 continue;
             case 6:
-                Level++;
-                a.Overworld.stop();
-                a.Underground.stop();
-                musicPlaying = false;
-                deathScreen = true;
-                switchingLevels = true;
+                hitFlagPole = true;
+                shape.setPosition({ shape.getPosition().x + 6.f, shape.getPosition().y });
+
 
                 break;
             default:
                 break;
             }
-            if (Coins >= 100) {
-                Lives++;
-                Coins = 0;
-            }
-
             cout << shape.getPosition().x << ", " << shape.getPosition().y << endl;
             if (currentArea == 0) {
                 window.clear(sf::Color(0x4DA6FFFF));
@@ -169,13 +158,89 @@ int main()
                 window.clear(sf::Color::Black);
 
             }
+
+            if (hitFlagPole) {
+                
+                shape.move({ 0.f, 1.f });
+                pm.resetVelocity();
+                switch (pm.getMarioSize()) {
+                case 0:
+                    shape.setTexture(b.s.SmallMarioFlag1);
+                    break;
+                case 1:
+                    shape.setTexture(b.s.MarioGrabPole);
+                    break;
+                case 2:
+                    shape.setTexture(b.s.FiremarioGrabPole);
+                    break;
+                }
+
+                if (shape.getPosition().y >= 240.f - 64.f) {
+                    shape.setPosition({ shape.getPosition().x, 240.f - 64.f});
+                    
+                    hitFlagPole = false;
+                    walkAway = true;
+
+                }
+            }
+            if (walkAway) {
+                pm.resetVelocity();
+                walkAwayFrames++;
+                pm.getVelocity().x = 5.f;
+                if (walkAwayFrames == 80) {
+                    walkAway = false;
+                    walkAwayFrames = 0;
+                    Level++;
+                    a.Overworld.stop();
+                    a.Underground.stop();
+                    musicPlaying = false;
+                    deathScreen = true;
+                    switchingLevels = true;
+                }
+
+            }
+            if (goingDown) {
+                goingDownFrames++;
+                pm.resetVelocity();
+
+                shape.move({ 0.f, .25f });
+                if (goingDownFrames >= 60) {
+                    a.Overworld.stop();
+                    Goombas.clear();
+                    goingDownFrames = 0;
+                    goingDown = false;
+                    currentArea = 1;
+                    subArea = true;
+                    musicPlaying = false;
+                    b.getSprites().clear();
+                    b.fillSubBoard();
+                    shape.setPosition({ 48.f, 32.f });
+                    pm.resetVelocity();
+                }
+
+            }
+            if (comingUp) {
+                goingDownFrames++;
+                pm.resetVelocity();
+                pm.getMarioSize() == 0 ? shape.move({ 0.f, -.55f }) : shape.move({ 0.f, -.85f });
+                if (goingDownFrames >= 60) {
+                    goingDownFrames = 0;
+                    comingUp = false;
+                }
+            }
+            if (Coins >= 100) {
+                Lives++;
+                Coins = 0;
+            }
+
+
             if (!movingPowerup) {
                 movePowerUp(PowerUp, powerupDir, b.getSprites(), b.s);
 
             }
             Cam = c.MoveCamera(shape, false);
             window.setView(Cam);
-            b.startBoard(window, currentArea, PowerUp);
+            b.startBoard(window, currentArea, PowerUp, shape, goingDown);
 
 
 
@@ -198,8 +263,10 @@ int main()
             }
 
 
+            if (!goingDown && !comingUp) {
+                window.draw(shape);
 
-            window.draw(shape);
+            }
 
             if (pm.getDeath() || Time <= 0) {
                 if (currentArea == 0) {
@@ -318,16 +385,8 @@ int main()
                 a.item.play();
                 break;
             case 5:
-                Goombas.clear();
-                a.Underground.stop();
-                currentArea = 0;
-                a.powerdown.play();
-                subArea = false;
-                musicPlaying = false;
-                b.getSprites().clear();
-                b.fillLevel(Goombas, currentArea);
-                shape.setPosition({ 2657.f, 160.f });
-                pm.resetVelocity();
+                goingDown = true;
+
                 continue;
             default:
                 break;
@@ -338,7 +397,7 @@ int main()
             }
             cout << shape.getPosition().x << ", " << shape.getPosition().y << endl;
             window.clear(sf::Color::Black);
-            b.startBoard(window, currentArea, PowerUp);
+            b.startBoard(window, currentArea, PowerUp, shape, goingDown);
             Cam = c.MoveCamera(shape, true);
             window.setView(Cam);
 
@@ -356,8 +415,31 @@ int main()
                 }
 
             }
+            if (goingDown) {
+                goingDownFrames++;
+                pm.resetVelocity();
+                shape.move({ .75f, 0.f });
+                if (goingDownFrames == 60) {
+                    comingUp = true;
+                    goingDownFrames = 0;
+                    goingDown = false;
+                    Goombas.clear();
+                    a.Underground.stop();
+                    currentArea = 0;
+                    a.powerdown.play();
+                    subArea = false;
+                    musicPlaying = false;
+                    b.getSprites().clear();
+                    b.fillLevel(Goombas, currentArea);
+                    shape.setPosition({ 2657.f, 160.f+32.f });
+                    pm.resetVelocity();
+                }
 
-            window.draw(shape);
+            }
+            if (!goingDown) {
+                window.draw(shape);
+
+            }
 
             if (pm.getDeath() || Time <= 0) {
                 if (currentArea == 0) {

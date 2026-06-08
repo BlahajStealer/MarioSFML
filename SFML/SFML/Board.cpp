@@ -274,7 +274,7 @@ void Board::fillSubBoard() {
 		std::cout << std::endl;
 	}
 }
-void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup) {
+void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown) {
 	std::vector<sf::Sprite> notSky;
 	for (int i = 0; i < std::size(sprites); i++) {
 		for (int f = 0; f < std::size(sprites[i]); f++) {
@@ -288,6 +288,10 @@ void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite P
 
 		}
 	}
+
+	window.draw(shape);
+
+
 	if (levelType == 0) {
 		std::vector<sf::Sprite> Hills(5, sf::Sprite(s.Hill));
 		std::vector<sf::Sprite> Bush3(5, sf::Sprite(s.Bush));
@@ -325,6 +329,6 @@ void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite P
 		window.draw(notSky[i]);
 	}
 }
-void Board::startBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup) {
-	InterpretBoard(window, levelType, Powerup);
+void Board::startBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown) {
+	InterpretBoard(window, levelType, Powerup, shape, goingDown);
 }
