@@ -5,7 +5,7 @@
 class Camera
 {
 public:
-	sf::View MoveCamera(sf::Sprite Player);
+	sf::View MoveCamera(sf::Sprite Player, bool subLevel);
 
 };
 

@@ -1,2 +1,22 @@
-﻿  PlayerMovement.cpp
-  SFML.vcxproj -> C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\x64\Debug\SFML.exe
+﻿  Board.cpp
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,48): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,48): warning C4244:         with
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,48): warning C4244:         [
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,48): warning C4244:             T=float
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,48): warning C4244:         ]
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,40): warning C4244:         with
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,40): warning C4244:         [
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,40): warning C4244:             T=float
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(186,40): warning C4244:         ]
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,48): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,48): warning C4244:         with
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,48): warning C4244:         [
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,48): warning C4244:             T=float
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,48): warning C4244:         ]
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,40): warning C4244:         with
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,40): warning C4244:         [
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,40): warning C4244:             T=float
+C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(271,40): warning C4244:         ]
+  SFML.vcxproj -> C:\Users\Ashley\Documents\GitHub\MarioSFML\SFML\x64\Debug\SFML.exe
