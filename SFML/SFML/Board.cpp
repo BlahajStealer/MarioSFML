@@ -178,7 +178,18 @@ void Board::fillLevel(std::vector<Enemy>& Goombas, int LevelType) {
 			case 'h':
 				tempText.setTexture(s.PipeTRD);
 				break;
-
+			case 'i':
+				tempText.setTexture(s.PipeTLSWD);
+				break;
+			case 'j':
+				tempText.setTexture(s.PipeBLSWD);
+				break;
+			case 'k':
+				tempText.setTexture(s.PipeTRSW);
+				break;
+			case 'l':
+				tempText.setTexture(s.PipeBRSW);
+				break;
 			default:
 				tempText.setTexture(s.Sky);
 				break;

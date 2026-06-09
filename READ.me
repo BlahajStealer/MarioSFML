@@ -1,0 +1,18 @@
+//How to get it running
+
+In order to get this project to work in Visual Studio 2022 you will need to right click "SFML", go to properties, then change the following things:
+
+In the C/C++ tab, click C/C++ and go to the first thing that says "Assitional Include Directories. Click the arrow, then <Edit...>
+
+Within Edit hit the folder icon and in the new line selected, click the "...". Within the project, find .\SFML\SFML\SFML-3.1.0\include
+
+Next go to the Linker tab. Within General, again find Additional Library Directories.
+
+Repeat what you did for the other tab but instead include .\SFML\SFML\SFML-3.1.0\lib
+
+There should be no errors within the project now.
+
+
+//Limitations of the project
+
+The only enemy is a Goomba unlike the original game. There is also a lack of a warp pipe in the second level and as it stands that is the final level in the project. If you go through the pipe you will end up in the 1-1 warp room and when you leave the game will make the second level the overworld theme and you will be stuck in the floor. Some bugs occur that I couldnt fix in time. 2 Player mode does nothing, it was just to mimic the original. Everything has been redrawn from scratch which means some colors are off.

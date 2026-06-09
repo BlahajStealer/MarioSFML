@@ -10,7 +10,7 @@ void movePowerUp(sf::Sprite &Powerup, int &powerupDir, std::vector<std::vector<s
 
                 sf::FloatRect shapeBounds = Powerup.getGlobalBounds();
                 sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
-                if (&Sprites[i][f].getTexture() == &s.Sky) {
+                if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG) {
 
                     continue;
                 }

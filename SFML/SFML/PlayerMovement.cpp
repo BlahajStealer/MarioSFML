@@ -516,6 +516,9 @@ void PlayerMovement::fireflower(sprite &s, sf::Sprite shape) {
 
 void PlayerMovement::WalkingAnim(sprite& s, sf::Sprite& shape) {
     framesPast++;
+    
+
+
     if (framesPast >= 4) {
         switch (MarioSize) {
         case 0:
@@ -604,11 +607,20 @@ void PlayerMovement::StoppingAnim(sprite& s, sf::Sprite& shape) {
 
 void PlayerMovement::CrouchedAnim(sprite& s, sf::Sprite& shape) {
     switch (MarioSize) {
-    case 1:
-        shape.setTexture(s.MarioCrouched, false);
+    case 1: {
+        sf::Sprite tempSprite(s.MarioCrouched, sf::IntRect({ 0,8 }, { 16,24 }));
+        tempSprite.setPosition({ shape.getPosition().x, shape.getPosition().y + 8 });
+        shape = tempSprite;
+
         break;
-    case 2:
-        shape.setTexture(s.FiremarioCrouched, false);
+    }
+
+    case 2: {
+        sf::Sprite tempSprite(s.FiremarioCrouched, sf::IntRect({ 0,8 }, { 16,24 }));
+        tempSprite.setPosition({ shape.getPosition().x, shape.getPosition().y + 8 });
+        shape = tempSprite;
         break;
+    }
+
     }
 }
