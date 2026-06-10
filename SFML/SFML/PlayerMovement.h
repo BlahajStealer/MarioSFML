@@ -31,6 +31,7 @@ public:
 	bool died = false;
 	bool sentPowerup = false;
 	bool sentCoin = false;
+	bool dontMove = false;
 	sf::Vector2f& getVelocity() {
 		return Velocity;
 	}
@@ -80,10 +81,11 @@ public:
 	bool getDeath() {
 		return Died;
 	}
+	void WalkingAnim(sprite& s, sf::Sprite& shape);
 
 private:
+	bool whatCanIHit(sf::Sprite Sprite, sprite& s);
 	Audios a;
-	void WalkingAnim(sprite& s, sf::Sprite &shape);
 	void CrouchedAnim(sprite& s, sf::Sprite &shape);
 	void StoppingAnim(sprite& s, sf::Sprite &shape);
 	static sf::FloatRect getHitbox(sf::Sprite player);

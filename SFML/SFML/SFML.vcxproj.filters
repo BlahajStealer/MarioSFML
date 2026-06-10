@@ -36,6 +36,12 @@
     <ClCompile Include="Fireball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BowserFireball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerMovement.h">
@@ -60,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Audio.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bowser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BowserFireball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -54,144 +54,148 @@ void PlayerMovement::marioSizeChange(bool inc, sf::Sprite& shape, sprite& s) { /
     shape.setScale(currentScale);
 }
 void PlayerMovement::VerticalMovement(sf::Sprite &shape, sprite &s) {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-        Crouching = true;
-        if (Velocity.x > 0) {
-            if (Grounded) {
-                WalkingAnim(s, shape);
+    if (!dontMove) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+            Crouching = true;
+            if (Velocity.x > 0) {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
 
-                shape.setScale({ 1.f, 1.f });
-            }
-            Acceleration = sf::Vector2f(-AccelerationFactors.x * 2, Acceleration.y);
-        }
-        else if (Velocity.x < 0) {
-            if (Grounded) {
-                WalkingAnim(s, shape);
-
-                shape.setScale({ -1.f, 1.f });
-
-            }
-            Acceleration = sf::Vector2f(AccelerationFactors.x * 2, Acceleration.y);
-        }
-
-        if (Velocity.x < 4.f && Velocity.x > -4.f && !Moving) {
-            if (Grounded) {
-                switch (MarioSize) {
-                case 0: shape.setTexture(s.SmallMario, false); break;
-                case 1: shape.setTexture(s.Mario, false); break;
-                case 2: shape.setTexture(s.Firemario, false); break;
+                    shape.setScale({ 1.f, 1.f });
                 }
-                
+                Acceleration = sf::Vector2f(-AccelerationFactors.x * 2, Acceleration.y);
             }
-            Acceleration = sf::Vector2f(0, Acceleration.y);
-            Velocity.x = 0.f;
+            else if (Velocity.x < 0) {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
+
+                    shape.setScale({ -1.f, 1.f });
+
+                }
+                Acceleration = sf::Vector2f(AccelerationFactors.x * 2, Acceleration.y);
+            }
+
+            if (Velocity.x < 4.f && Velocity.x > -4.f && !Moving) {
+                if (Grounded) {
+                    switch (MarioSize) {
+                    case 0: shape.setTexture(s.SmallMario, false); break;
+                    case 1: shape.setTexture(s.Mario, false); break;
+                    case 2: shape.setTexture(s.Firemario, false); break;
+                    }
+
+                }
+                Acceleration = sf::Vector2f(0, Acceleration.y);
+                Velocity.x = 0.f;
+            }
+            Moving = false;
+            CrouchedAnim(s, shape);
         }
-        Moving = false;
-        CrouchedAnim(s, shape);
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-        Crouching = false;
-        if (Velocity.x > 0) {
-            Acceleration = sf::Vector2f(-AccelerationFactors.x * 8, Acceleration.y);
-            if (Grounded) {
-                StoppingAnim(s, shape);
-                shape.setScale({ 1.f, 1.f });
-            }
-        }
-        else {
-            if (Grounded) {
-                WalkingAnim(s, shape);
-                shape.setScale({ -1.f, 1.f });
-
-            }
-            if (Sprinting) {
-                Acceleration = sf::Vector2f(-AccelerationFactors.x * 1.78, Acceleration.y);
-
-            }
-            else {
-                Acceleration = sf::Vector2f(-AccelerationFactors.x, Acceleration.y);
-
-            }
-
-        }
-
-        Moving = true;
-    }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-        Crouching = false;
-
-        if (Velocity.x < 0) {
-            Acceleration = sf::Vector2f(AccelerationFactors.x * 8, Acceleration.y);
-            if (Grounded) {
-                StoppingAnim(s, shape);
-
-                shape.setScale({ -1.f, 1.f });
-
-            }
-        }
-        else {
-            if (Grounded) {
-                WalkingAnim(s, shape);
-
-                shape.setScale({ 1.f, 1.f });
-
-
-            }
-            if (Sprinting) {
-                Acceleration = sf::Vector2f(AccelerationFactors.x * 1.78, Acceleration.y);
-
-            }
-            else {
-                Acceleration = sf::Vector2f(AccelerationFactors.x, Acceleration.y);
-
-            }
-
-        }
-
-        Moving = true;
-
-    }
-    else {
-        Crouching = false;
-
-        if (Velocity.x > 0) {
-            if (Grounded) {
-                WalkingAnim(s, shape);
-
-                shape.setScale({ 1.f, 1.f });
-            }
-            Acceleration = sf::Vector2f(-AccelerationFactors.x * 2, Acceleration.y);
-        }
-        else if (Velocity.x < 0) {
-            if (Grounded) {
-                WalkingAnim(s, shape);
-
-                shape.setScale({ -1.f, 1.f });
-
-            }
-            Acceleration = sf::Vector2f(AccelerationFactors.x * 2, Acceleration.y);
-        }
-
-        if (Velocity.x < 4.f && Velocity.x > -4.f && !Moving) {
-            if (Grounded) {
-                switch (MarioSize) {
-                case 0:
-                    shape.setTexture(s.SmallMario);
-                    break;
-                case 1:
-                    shape.setTexture(s.Mario);
-                    break;
-                case 2:
-                    shape.setTexture(s.Firemario);
-                    break;
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+            if (Velocity.x > 0) {
+                Acceleration = sf::Vector2f(-AccelerationFactors.x * 8, Acceleration.y);
+                if (Grounded) {
+                    StoppingAnim(s, shape);
+                    shape.setScale({ 1.f, 1.f });
                 }
             }
-            Acceleration = sf::Vector2f(0, Acceleration.y);
-            Velocity.x = 0.f;
-        }
-        Moving = false;
+            else {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
+                    shape.setScale({ -1.f, 1.f });
 
+                }
+                if (Sprinting) {
+                    Acceleration = sf::Vector2f(-AccelerationFactors.x * 1.78, Acceleration.y);
+
+                }
+                else {
+                    Acceleration = sf::Vector2f(-AccelerationFactors.x, Acceleration.y);
+
+                }
+
+            }
+            Crouching = false;
+
+            Moving = true;
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+
+            if (Velocity.x < 0) {
+                Acceleration = sf::Vector2f(AccelerationFactors.x * 8, Acceleration.y);
+                if (Grounded) {
+                    StoppingAnim(s, shape);
+
+                    shape.setScale({ -1.f, 1.f });
+
+                }
+            }
+            else {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
+
+                    shape.setScale({ 1.f, 1.f });
+
+
+                }
+                if (Sprinting) {
+                    Acceleration = sf::Vector2f(AccelerationFactors.x * 1.78, Acceleration.y);
+
+                }
+                else {
+                    Acceleration = sf::Vector2f(AccelerationFactors.x, Acceleration.y);
+
+                }
+
+            }
+            Crouching = false;
+
+            Moving = true;
+
+        }
+        else {
+
+            if (Velocity.x > 0) {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
+
+                    shape.setScale({ 1.f, 1.f });
+                }
+                Acceleration = sf::Vector2f(-AccelerationFactors.x * 2, Acceleration.y);
+            }
+            else if (Velocity.x < 0) {
+                if (Grounded) {
+                    WalkingAnim(s, shape);
+
+                    shape.setScale({ -1.f, 1.f });
+
+                }
+                Acceleration = sf::Vector2f(AccelerationFactors.x * 2, Acceleration.y);
+            }
+
+            if (Velocity.x < 4.f && Velocity.x > -4.f && !Moving) {
+                if (Grounded) {
+                    switch (MarioSize) {
+                    case 0:
+                        shape.setTexture(s.SmallMario);
+                        break;
+                    case 1:
+                        shape.setTexture(s.Mario);
+                        break;
+                    case 2:
+                        shape.setTexture(s.Firemario);
+                        break;
+                    }
+                }
+                Acceleration = sf::Vector2f(0, Acceleration.y);
+                Velocity.x = 0.f;
+            }
+            Crouching = false;
+
+            Moving = false;
+
+        }
     }
+
 }
 void PlayerMovement::Gravity(void) {
     if (!Grounded) {
@@ -250,7 +254,7 @@ int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
             sf::FloatRect shapeBounds = getHitbox(shape);
             sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
 
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.FlagL) {
+            if (whatCanIHit(Sprites[i][f], s)) {
                 continue;
             }
             else if (shapeBounds.findIntersection(spriteBounds)) {
@@ -264,12 +268,17 @@ int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
                         WhatDidYouHit = 3;
                         Sprites[i][f].setTexture(currentLevel == 0 ? s.Sky : s.SkyUG);
                     }
-                    else if (&Sprites[i][f].getTexture() == &s.PipeBLSWD || &Sprites[i][f].getTexture() == &s.PipeTLSWD) {
+                    else if ((&Sprites[i][f].getTexture() == &s.PipeBLSWD || &Sprites[i][f].getTexture() == &s.PipeTLSWD) && Grounded) {
                         WhatDidYouHit = 5;
                     }
                     else if (&Sprites[i][f].getTexture() == &s.Flagpole || &Sprites[i][f].getTexture() == &s.FlagR || &Sprites[i][f].getTexture() == &s.TopFlag) {
                         WhatDidYouHit = 6;
                         Velocity = { 0.f, 0.f };
+                    }
+                    else if (&Sprites[i][f].getTexture() == &s.Axe) {
+                        WhatDidYouHit = 7;
+
+
                     }
                     else {
                         shape.move(sf::Vector2f(-Velocity.x / 60.f, 0));
@@ -295,7 +304,7 @@ int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
             sf::FloatRect shapeBounds = getHitbox(shape);
             sf::FloatRect spriteBounds = Sprites[i][f].getGlobalBounds();
 
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.FlagL) {
+            if (whatCanIHit(Sprites[i][f], s)) {
 
                 continue;
             }
@@ -351,6 +360,11 @@ int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
 
                                 }
                             }
+                            else if (&Sprites[i][f].getTexture() == &s.Axe) {
+                                WhatDidYouHit = 7;
+
+
+                            }
                             else {
                                 shape.move({ 0, -Velocity.y / 60.f });
                             }
@@ -370,14 +384,16 @@ int PlayerMovement::Movement(sf::Sprite& shape, float yCord,
                                 WhatDidYouHit = 1;
                             }
                             else if (&Sprites[i][f].getTexture() == &s.LuckyBlock) {
-                                tempSprite.setTexture(s.CoinedLB);
+                                if (currentLevel == 0) { tempSprite.setTexture(s.CoinedLB); }
+                                else { tempSprite.setTexture(s.CoinedLBUG); }
                                 sentCoin = true;
                                 JustHitBlock = tempSprite.getPosition();
                                 Sprites[i][f] = tempSprite;
                                 WhatDidYouHit = 2;
                             }
                             else if (&Sprites[i][f].getTexture() == &s.LuckyBlockPU) {
-                                tempSprite.setTexture(s.CoinedLB);
+                                if (currentLevel == 0) { tempSprite.setTexture(s.CoinedLB); }
+                                else { tempSprite.setTexture(s.CoinedLBUG); }
                                 switch (MarioSize) {
                                 case 0: powerupOnScreen.setTexture(s.Mushroom); break;
                                 default: powerupOnScreen.setTexture(s.Fireflower); break;
@@ -496,7 +512,7 @@ void PlayerMovement::fireflower(sprite &s, sf::Sprite shape) {
         HoldingN = true;
         a.fireball.play();
         sf::Sprite TempFireball(s.Fireball, sf::IntRect(sf::Vector2{4,4}, sf::Vector2i{8, 8}));
-        TempFireball.setPosition({ shape.getPosition().x + 8, shape.getPosition().y + 8 });
+        TempFireball.setPosition({ shape.getPosition().x, shape.getPosition().y + 8 });
         int dir;
         Velocity.x < 0 ? dir = -1 : dir = 1;
         if (Velocity.x == 0) {
@@ -517,6 +533,8 @@ void PlayerMovement::fireflower(sprite &s, sf::Sprite shape) {
 void PlayerMovement::WalkingAnim(sprite& s, sf::Sprite& shape) {
     framesPast++;
     
+
+
 
 
     if (framesPast >= 4) {
@@ -608,19 +626,28 @@ void PlayerMovement::StoppingAnim(sprite& s, sf::Sprite& shape) {
 void PlayerMovement::CrouchedAnim(sprite& s, sf::Sprite& shape) {
     switch (MarioSize) {
     case 1: {
-        sf::Sprite tempSprite(s.MarioCrouched, sf::IntRect({ 0,8 }, { 16,24 }));
-        tempSprite.setPosition({ shape.getPosition().x, shape.getPosition().y + 8 });
+        sf::Sprite tempSprite(s.MarioCrouched);
+        tempSprite.setPosition(shape.getPosition());
         shape = tempSprite;
 
         break;
     }
 
     case 2: {
-        sf::Sprite tempSprite(s.FiremarioCrouched, sf::IntRect({ 0,8 }, { 16,24 }));
-        tempSprite.setPosition({ shape.getPosition().x, shape.getPosition().y + 8 });
+        sf::Sprite tempSprite(s.FiremarioCrouched);
+        tempSprite.setPosition(shape.getPosition());
         shape = tempSprite;
         break;
     }
 
+    }
+}
+
+bool PlayerMovement::whatCanIHit(sf::Sprite Sprite, sprite &s) {
+    if (&Sprite.getTexture() == &s.Sky || &Sprite.getTexture() == &s.SkyUG || &Sprite.getTexture() == &s.FlagL || &Sprite.getTexture() == &s.TreeStem || &Sprite.getTexture() == &s.Chain || &Sprite.getTexture() == &s.Lava || &Sprite.getTexture() == &s.LavaBase) {
+        return true;
+    }
+    else {
+        return false;
     }
 }

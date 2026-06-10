@@ -25,7 +25,7 @@ void Enemy::Move(std::vector<std::vector<sf::Sprite>>& Sprites, sprite& s) {
 
     for (int i = startY; i <= endY; i++) {
         for (int f = startX; f <= endX; f++) {
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG) {
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.TreeStem) {
                 continue;
             }
 
@@ -56,7 +56,7 @@ void Enemy::Move(std::vector<std::vector<sf::Sprite>>& Sprites, sprite& s) {
 
     for (int i = startY; i <= endY; i++) {
         for (int f = startX; f <= endX; f++) {
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG) {
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.TreeStem) {
                 continue;
             }
 

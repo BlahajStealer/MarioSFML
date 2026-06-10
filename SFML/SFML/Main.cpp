@@ -12,8 +12,11 @@
 #include <iomanip>
 #include <sstream>
 using namespace std;
+
+
 int main()
 {
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     Audios a = Audios();
     int powerupDir = -1;
     char cwd[MAX_PATH];
@@ -39,7 +42,7 @@ int main()
     int Coins = 0;
     int Lives = 3;
     int World = 1;
-    int Level = 1;
+    int Level = 3;
     bool deathScreen = false;
     int deathFrames = 0;
     sf::View Cam;
@@ -64,18 +67,29 @@ int main()
     bool hitFlagPole = false;
     bool walkAway = false;
     int walkAwayFrames = false;
+    bool hitAxe = false;
+    bool talking2Toad = false;
+    int castleFrames = 0;
     while (window.isOpen())
     {
+
+
         shape.setOrigin(sf::Vector2f(8.f, 0.f));
 
         FrameRule++;
         if (FrameRule >= 21) {
 
             FrameRule = 0;
-            Time--;
+            if (!walkAway && !hitFlagPole && !comingUp && !goingDown) {
+                Time--;
+
+            }
         }
 
-        
+        if (Lives <= 0) {
+            std::exit(true);
+
+        }
 
         while (const std::optional event = window.pollEvent())
         {
@@ -83,17 +97,21 @@ int main()
                 window.close();
         }
         if (!deathScreen && !MainMenu && !subArea) {
-            if (currentArea == 0 && !musicPlaying) {
+
+            if (Level == 2 && !musicPlaying) {
                 musicPlaying = true;
-                a.Overworld.setVolume(50.f);
-                a.Overworld.setLooping(true);
-                a.Overworld.play();
-            }
-            else if (currentArea == 1 && !musicPlaying) {
-                musicPlaying = true;
-                a.Underground.setVolume(50.f);
                 a.Underground.setLooping(true);
                 a.Underground.play();
+            }
+            else if (Level == 4 && !musicPlaying) {
+                musicPlaying = true;
+                a.Castle.setLooping(true);
+                a.Castle.play();
+            }
+            else if (!musicPlaying) {
+                musicPlaying = true;
+                a.Overworld.setLooping(true);
+                a.Overworld.play();
             }
 
             if (pm.getInvincible()) {
@@ -136,6 +154,7 @@ int main()
                 a.item.play();
                 break;
             case 5:
+                
                 goingDown = true;
                 a.powerdown.play();
 
@@ -145,6 +164,9 @@ int main()
                 shape.setPosition({ shape.getPosition().x + 6.f, shape.getPosition().y });
 
 
+                break;
+            case 7:
+                hitAxe = true;
                 break;
             default:
                 break;
@@ -159,6 +181,8 @@ int main()
 
             }
 
+
+            //Animations, refactor into misc
             if (hitFlagPole) {
                 
                 shape.move({ 0.f, 1.f });
@@ -174,24 +198,60 @@ int main()
                     shape.setTexture(b.s.FiremarioGrabPole);
                     break;
                 }
+                if (pm.getMarioSize() == 0) {
+                    if (shape.getPosition().y >= 240.f - 48.f) {
+                        shape.setPosition({ shape.getPosition().x, 240.f - 48.f });
+                        if (pm.getMarioSize() == 0) {
+                            shape.setTexture(b.s.SmallMarioFlag2);
 
-                if (shape.getPosition().y >= 240.f - 64.f) {
-                    shape.setPosition({ shape.getPosition().x, 240.f - 64.f});
-                    
-                    hitFlagPole = false;
-                    walkAway = true;
+                        }
+                        else if (pm.getMarioSize() == 1) {
+                            shape.setTexture(b.s.MarioBottomFlag);
 
+                        }
+                        else {
+                            shape.setTexture(b.s.FiremarioBottomFlag);
+
+                        }
+                        shape.setScale({ -1.f, 1.f });
+                        hitFlagPole = false;
+                        walkAway = true;
+
+                    }
                 }
+                else {
+                    if (shape.getPosition().y >= 240.f - 64.f) {
+                        shape.setPosition({ shape.getPosition().x, 240.f - 64.f });
+                        if (pm.getMarioSize() == 0) {
+                            shape.setTexture(b.s.SmallMarioFlag2);
+
+                        }
+                        else if (pm.getMarioSize() == 1) {
+                            shape.setTexture(b.s.MarioBottomFlag);
+
+                        }
+                        else {
+                            shape.setTexture(b.s.FiremarioBottomFlag);
+
+                        }
+                        shape.setScale({ -1.f, 1.f });
+                        hitFlagPole = false;
+                        walkAway = true;
+
+                    }
+                }
+
             }
             if (walkAway) {
-                pm.resetVelocity();
                 walkAwayFrames++;
-                pm.getVelocity().x = 5.f;
+                pm.getVelocity().x = 80.f;
+                pm.WalkingAnim(b.s, shape);
                 if (walkAwayFrames == 80) {
                     walkAway = false;
                     walkAwayFrames = 0;
                     Level++;
                     a.Overworld.stop();
+                    a.Castle.stop();
                     a.Underground.stop();
                     musicPlaying = false;
                     deathScreen = true;
@@ -202,18 +262,26 @@ int main()
             if (goingDown) {
                 goingDownFrames++;
                 pm.resetVelocity();
+                if (Level == 2) {
+                    shape.move({ 0.85f, 0.f });
 
-                shape.move({ 0.f, .25f });
+                }
+                else {
+                    shape.move({ 0.f, .25f });
+
+                }
                 if (goingDownFrames >= 60) {
                     a.Overworld.stop();
+                    a.Underground.stop();
+                    a.Castle.stop();
                     Goombas.clear();
                     goingDownFrames = 0;
                     goingDown = false;
-                    currentArea = 1;
+                    currentArea == 1 ? currentArea = 0 : currentArea = 1;
                     subArea = true;
                     musicPlaying = false;
                     b.getSprites().clear();
-                    b.fillSubBoard();
+                    b.fillSubBoard(currentArea);
                     shape.setPosition({ 48.f, 32.f });
                     pm.resetVelocity();
                 }
@@ -228,6 +296,17 @@ int main()
                     comingUp = false;
                 }
             }
+            if (hitAxe) {
+                pm.getVelocity().x = 80.f;
+                pm.WalkingAnim(s, shape);
+                if (shape.getPosition().x >= 2464.f) {
+                    pm.resetVelocity();
+                    hitAxe = false;
+                    talking2Toad = true;
+                }
+            }
+
+
             if (Coins >= 100) {
                 Lives++;
                 Coins = 0;
@@ -238,9 +317,15 @@ int main()
                 movePowerUp(PowerUp, powerupDir, b.getSprites(), b.s);
 
             }
-            Cam = c.MoveCamera(shape, false);
+            if (!walkAway && !hitFlagPole) {
+                Cam = c.MoveCamera(shape, false);
+
+            }
+            else {
+
+            }
             window.setView(Cam);
-            b.startBoard(window, currentArea, PowerUp, shape, goingDown);
+            b.startBoard(window, currentArea, PowerUp, shape, goingDown, Level);
 
 
 
@@ -388,6 +473,11 @@ int main()
                 goingDown = true;
 
                 continue;
+            case 6:
+                hitFlagPole = true;
+                shape.setPosition({ shape.getPosition().x + 6.f, shape.getPosition().y });
+
+
             default:
                 break;
             }
@@ -396,8 +486,8 @@ int main()
                 Coins = 0;
             }
             cout << shape.getPosition().x << ", " << shape.getPosition().y << endl;
-            window.clear(sf::Color::Black);
-            b.startBoard(window, currentArea, PowerUp, shape, goingDown);
+            currentArea == 1 ? window.clear(sf::Color::Black) : window.clear(sf::Color(0x4DA6FFFF));
+            b.startBoard(window, currentArea, PowerUp, shape, goingDown, Level);
             Cam = c.MoveCamera(shape, true);
             window.setView(Cam);
 
@@ -415,6 +505,66 @@ int main()
                 }
 
             }
+            if (hitFlagPole) {
+
+                shape.move({ 0.f, 1.f });
+                pm.resetVelocity();
+                switch (pm.getMarioSize()) {
+                case 0:
+                    shape.setTexture(b.s.SmallMarioFlag1);
+                    break;
+                case 1:
+                    shape.setTexture(b.s.MarioGrabPole);
+                    break;
+                case 2:
+                    shape.setTexture(b.s.FiremarioGrabPole);
+                    break;
+                }
+                if (pm.getMarioSize() == 0) {
+                    if (shape.getPosition().y >= 240.f - 48.f) {
+                        shape.setPosition({ shape.getPosition().x, 240.f - 48.f });
+                    }
+                }
+                else {
+                    if (shape.getPosition().y >= 240.f - 64.f) {
+                        shape.setPosition({ shape.getPosition().x, 240.f - 64.f });
+                    }
+                }
+                if (pm.getMarioSize() == 0) {
+                    shape.setTexture(b.s.SmallMarioFlag2);
+
+                }
+                else if (pm.getMarioSize() == 1) {
+                    shape.setTexture(b.s.MarioBottomFlag);
+
+                }
+                else {
+                    shape.setTexture(b.s.FiremarioBottomFlag);
+
+                }
+                shape.setScale({ -1.f, 1.f });
+                hitFlagPole = false;
+                walkAway = true;
+            }
+            if (walkAway) {
+                walkAwayFrames++;
+                pm.getVelocity().x = 80.f;
+                pm.WalkingAnim(b.s, shape);
+                if (walkAwayFrames == 10) {
+                    walkAway = false;
+                    walkAwayFrames = 0;
+                    Level++;
+                    a.Overworld.stop();
+                    a.Underground.stop();
+                    musicPlaying = false;
+                    deathScreen = true;
+                    switchingLevels = true;
+                    Goombas.clear();
+                    subArea = false;
+                }
+            }
+
+
             if (goingDown) {
                 goingDownFrames++;
                 pm.resetVelocity();
@@ -425,7 +575,7 @@ int main()
                     goingDown = false;
                     Goombas.clear();
                     a.Underground.stop();
-                    currentArea = 0;
+                    currentArea == 0 ? currentArea = 1 : currentArea = 0;
                     a.powerdown.play();
                     subArea = false;
                     musicPlaying = false;
@@ -473,19 +623,69 @@ int main()
             deathFrames++;
             window.clear(sf::Color::Black);
             Time = 0;
+            switch (Level) {
+            case 1:
+            case 3:
+                shape.setPosition(sf::Vector2f(48, 192));
+                break;
+            case 2:
+                shape.setPosition(sf::Vector2f(48, 32));
+                break;
+            case 4:
+                if (pm.getMarioSize() == 0) {
+                    shape.setPosition(sf::Vector2f(16, 112));
+
+                }
+                else {
+                    shape.setPosition(sf::Vector2f(16, 96));
+
+                }
+                break;
+            default:
+                break;
+            }
             if (deathFrames >= 255) {
                 deathFrames = 0;
                 deathScreen = false;
                 Time = 400;
                 if (switchingLevels) {
-                    currentArea++;
-                    b.BuildBoard(1);
-                    b.BuildSubBoard(1);
+                    if (Level == 2 || Level == 4) {
+                        currentArea = 1;
+                    }
+                    else {
+                        currentArea = 0;
+                    }
+                    b.BuildBoard(Level-1);
+                    b.BuildSubBoard(Level-1);
                     Goombas.clear();
                     b.getSprites().clear();
                     b.fillLevel(Goombas, currentArea);
                     pm.resetVelocity();
-                    shape.setPosition(sf::Vector2f(48, 192));
+                    switch (Level) {
+                    case 1:
+                    case 3:
+                        shape.setPosition(sf::Vector2f(48, 192));
+                        break;
+                    case 2:
+                        shape.setPosition(sf::Vector2f(48, 32));
+                        break;
+                    case 4:
+                        if (pm.getMarioSize() == 0) {
+                            shape.setPosition(sf::Vector2f(16, 112));
+
+                        }
+                        else {
+                            shape.setPosition(sf::Vector2f(16, 96));
+
+                        }
+                        break;
+                    default:
+                        break;
+
+
+
+
+                    }
                     switchingLevels = false;
 
                 }
@@ -514,7 +714,16 @@ int main()
         
         ScoreText.setPosition({ 24.f, 16.f});
         window.draw(ScoreText);
-
+        if (talking2Toad) {
+            sf::Text toad(MarioFont);
+            toad.setString("Thank You Mario!\n\nBut our princess is in\nanother castle");
+            toad.setCharacterSize(32);
+            toad.setPosition({ 144.f,300.f});
+            window.draw(toad);
+            if (castleFrames >= 580) {
+                return 0;
+            }
+        }
         if (deathScreen) {
             sf::Text WorldText(MarioFont);
             WorldText.setString("WORLD " + std::to_string(World) + "-" + std::to_string(Level));

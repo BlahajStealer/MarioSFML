@@ -1,0 +1,195 @@
+﻿  Board.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,48): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,48): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,48): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,48): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,48): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,40): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,40): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,40): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(247,40): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,48): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,48): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,48): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,48): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,48): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,40): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,40): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,40): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,40): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Board.cpp(412,40): warning C4244:         ]
+  Camera.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(20,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(21,27): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(22,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(25,26): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(26,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(27,21): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(28,24): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(29,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(30,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(31,23): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(32,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Camera.cpp')
+  
+  Enemy.cpp
+  Fireball.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Fireball.cpp(61,56): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Fireball.cpp(61,56): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Fireball.cpp(61,56): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Fireball.cpp(61,56): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Fireball.cpp(61,56): warning C4244:         ]
+  Misc.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(20,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(21,27): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(22,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(25,26): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(26,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(27,21): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(28,24): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(29,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(30,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(31,23): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(32,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Misc.cpp')
+  
+  Main.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(20,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(21,27): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(22,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(25,26): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(26,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(27,21): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(28,24): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(29,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(30,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(31,23): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(32,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'Main.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(129,59): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(129,59): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(129,59): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(129,59): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(129,59): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(335,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(338,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(494,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Main.cpp(497,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  PlayerMovement.cpp
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(20,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(21,27): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(22,22): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(25,26): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(26,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(27,21): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(28,24): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(29,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(30,20): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(31,23): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\Audio.hpp(32,25): warning C4834: discarding return value of function with [[nodiscard]] attribute
+  (compiling source file 'PlayerMovement.cpp')
+  
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(108,72): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(108,72): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(108,72): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(108,72): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(108,72): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(141,71): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(141,71): warning C4244:         with
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(141,71): warning C4244:         [
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(141,71): warning C4244:             T=float
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(141,71): warning C4244:         ]
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\SFML\PlayerMovement.cpp(216,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: void __cdecl sf::SoundSource::setVolume(float)" (__imp_?setVolume@SoundSource@sf@@QEAAXM@Z)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: bool __cdecl sf::Music::openFromFile(class std::filesystem::path const &)" (__imp_?openFromFile@Music@sf@@QEAA_NAEBVpath@filesystem@std@@@Z)
+    Hint on symbols that are defined and could potentially match:
+      "__declspec(dllimport) public: bool __cdecl sf::Font::openFromFile(class std::filesystem::path const &)" (__imp_?openFromFile@Font@sf@@QEAA_NAEBVpath@filesystem@std@@@Z)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: virtual __cdecl sf::Music::~Music(void)" (__imp_??1Music@sf@@UEAA@XZ)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: __cdecl sf::Music::Music(void)" (__imp_??0Music@sf@@QEAA@XZ)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: void __cdecl sf::SoundStream::setLooping(bool)" (__imp_?setLooping@SoundStream@sf@@QEAAX_N@Z)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: virtual void __cdecl sf::SoundStream::stop(void)" (__imp_?stop@SoundStream@sf@@UEAAXXZ)
+Main.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: virtual void __cdecl sf::SoundStream::play(void)" (__imp_?play@SoundStream@sf@@UEAAXXZ)
+Misc.obj : error LNK2001: unresolved external symbol "__declspec(dllimport) public: class sf::Music & __cdecl sf::Music::operator=(class sf::Music &&)" (__imp_??4Music@sf@@QEAAAEAV01@$$QEAV01@@Z)
+C:\Users\Googa\Documents\GitHub\MarioSFML\SFML\x64\Release\SFML.exe : fatal error LNK1120: 8 unresolved externals

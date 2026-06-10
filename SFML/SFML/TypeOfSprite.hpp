@@ -34,11 +34,26 @@ public:
 	const sf::Texture CoinedLB;
 	const sf::Texture CoinedLBUG;
 
+	const sf::Texture Tree;
+	const sf::Texture TreeRight;
+	const sf::Texture TreeLeft;
+	const sf::Texture Platform;
+	const sf::Texture TreeStem;
+	const sf::Texture TreeStemRight;
+	const sf::Texture TreeStemLeft;
+
 	const sf::Texture LuckyBlockPU;
 	const sf::Texture Mushroom;
 	const sf::Texture Fireflower;
 	const sf::Texture Star;
 	const sf::Texture Fireball;
+
+	const sf::Texture Lava;
+	const sf::Texture LavaBase;
+	const sf::Texture CastleGround;
+	const sf::Texture Chain;
+	const sf::Texture Axe;
+	const sf::Texture BreakableGround;
 
 
 	const sf::Texture SmallMario;
@@ -82,6 +97,15 @@ public:
 	const sf::Texture Mainmenu;
 	const sf::Texture MushroomSelector;
 
+	const sf::Texture ToadBody;
+	const sf::Texture ToadHead;
+
+	const sf::Texture BowserR;
+	const sf::Texture BowserL;
+	const sf::Texture BowserFR;
+	const sf::Texture BowserFL;
+	const sf::Texture BowserFB;
+
 	sprite()
 		: BrickUG(std::filesystem::path("Tiles/Underground/Brick.png"))
 		, Brick(std::filesystem::path("Tiles/Brick.png"))
@@ -113,11 +137,26 @@ public:
 		, CoinedLBUG(std::filesystem::path("Tiles/CoinedLBUG.png"))
 		, LuckyBlockPU(std::filesystem::path("Tiles/LuckyBlockPU.png"))
 
+		, Tree(std::filesystem::path("Tiles/Tree.png"))
+		, TreeRight(std::filesystem::path("Tiles/TreeRight.png"))
+		, TreeLeft(std::filesystem::path("Tiles/TreeLeft.png"))
+		, Platform(std::filesystem::path("Tiles/Platform.png"))
+		, TreeStem(std::filesystem::path("Tiles/MushroomStem.png"))
+		, TreeStemRight(std::filesystem::path("Tiles/MushroomStemRight.png"))
+		, TreeStemLeft(std::filesystem::path("Tiles/MushroomStemLeft.png"))
+
 
 		, Mushroom(std::filesystem::path("Tiles/Mushroom.png"))
 		, Fireflower(std::filesystem::path("Tiles/Fireflower.png"))
 		, Star(std::filesystem::path("Tiles/Star.png"))
 		, Fireball(std::filesystem::path("Tiles/Fireball.png"))
+
+		, Lava(std::filesystem::path("Tiles/Lava.png"))
+		, LavaBase(std::filesystem::path("Tiles/LavaBase.png"))
+		, CastleGround(std::filesystem::path("Tiles/CastleGround.png"))
+		, Chain(std::filesystem::path("Tiles/Chain.png"))
+		, Axe(std::filesystem::path("Tiles/Axe.png"))
+		, BreakableGround(std::filesystem::path("Tiles/BreakablePlatform.png"))
 
 
 		, SmallMario(std::filesystem::path("Tiles/MarioAnims/Small/SmallMario.png"))
@@ -158,6 +197,15 @@ public:
 
 		, Mainmenu(std::filesystem::path("Tiles/MainMenu.png"))
 		, MushroomSelector(std::filesystem::path("Tiles/MushroomSelect.png"))
+
+		, ToadBody(std::filesystem::path("Tiles/ToadBody.png"))
+		, ToadHead(std::filesystem::path("Tiles/ToadHead.png"))
+
+		, BowserR(std::filesystem::path("Tiles/BowserR.png"))
+		, BowserL(std::filesystem::path("Tiles/BowserL.png"))
+		, BowserFR(std::filesystem::path("Tiles/BowserFireR.png"))
+		, BowserFL(std::filesystem::path("Tiles/BowserFireL.png"))
+		, BowserFB(std::filesystem::path("Tiles/BowserFB.png"))
 	{
 
 

@@ -5,6 +5,7 @@ class Audios {
 public:
 	sf::Music Overworld;
 	sf::Music Underground;
+	sf::Music Castle;
 	
 	sf::Music brickBreak;
 	sf::Music coin;
@@ -18,6 +19,7 @@ public:
 	Audios() {
 		Overworld.openFromFile("Music\\Overworld.mp3");
 		Underground.openFromFile("Music\\Underground.mp3");
+		Castle.openFromFile("Music\\Castle.mp3");
 
 
 		brickBreak.openFromFile("SoundEffects\\brickBreak.wav");

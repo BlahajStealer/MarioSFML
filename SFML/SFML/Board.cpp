@@ -190,7 +190,57 @@ void Board::fillLevel(std::vector<Enemy>& Goombas, int LevelType) {
 			case 'l':
 				tempText.setTexture(s.PipeBRSW);
 				break;
+			case 'm':
+				tempText.setTexture(s.TreeStemRight);
+				break;
+			case 'n':
+				tempText.setTexture(s.TreeStemLeft);
+				break;
+			case 'o':
+				tempText.setTexture(s.TreeStem);
+				break;
+			case 'p':
+				tempText.setTexture(s.Platform);
+				break;
+			case 'q':
+				tempText.setTexture(s.Tree);
+				break;
+			case 'r':
+				tempText.setTexture(s.TreeLeft);
+				break;
+			case 's':
+				tempText.setTexture(s.TreeRight);
+				break;
+			case 't':
+				tempText.setTexture(s.Lava);
+				break;
+			case 'u':
+				tempText.setTexture(s.LavaBase);
+				break;
+			case 'v':
+				tempText.setTexture(s.Axe);
+				break;
+			case 'w':
+				tempText.setTexture(s.Chain);
+				break;
+			case 'x':
+				tempText.setTexture(s.CastleGround);
+				break;
+			case 'y':
+				tempText.setTexture(s.BreakableGround);
+				break;
+			case 'z':
+				tempText.setTexture(s.CoinedLB);
+				break;
+			case 'A':
+				tempText.setTexture(s.ToadBody);
+				break;
+			case 'B':
+				tempText.setTexture(s.ToadHead);
+				break;
+
 			default:
+
 				tempText.setTexture(s.Sky);
 				break;
 			}
@@ -200,7 +250,7 @@ void Board::fillLevel(std::vector<Enemy>& Goombas, int LevelType) {
 		std::cout << std::endl;
 	}
 }
-void Board::fillSubBoard() {
+void Board::fillSubBoard(int LevelType) {
 	for (int h = 0; h < 16; h++) {
 		std::vector<sf::Sprite> tempor;
 		sprites.push_back(tempor);
@@ -209,18 +259,51 @@ void Board::fillSubBoard() {
 			sf::Sprite tempText = sf::Sprite(s.Sky);
 			switch (subBoard[h][d]) {
 			case '0':
+				if (LevelType == 0) {
+					tempText.setTexture(s.Sky);
 
-				tempText.setTexture(s.SkyUG);
+				}
+				else if (LevelType == 1) {
+					tempText.setTexture(s.SkyUG);
+
+				}
 				break;
 			case '1':
-				tempText.setTexture(s.BrickUG);
+				if (LevelType == 0) {
+					tempText.setTexture(s.Brick);
+
+				}
+				else if (LevelType == 1) {
+					tempText.setTexture(s.BrickUG);
+
+				}
 				break;
 			case '2':
 				tempText.setTexture(s.LuckyBlock);
 				break;
 			case '3':
-				tempText.setTexture(s.BreakableBrickUG);
+				if (LevelType == 0) {
+					tempText.setTexture(s.BreakableBrick);
+
+				}
+				else if (LevelType == 1) {
+					tempText.setTexture(s.BreakableBrickUG);
+
+				}
 				break;
+			case '4': {
+				if (LevelType == 0) {
+					tempText.setTexture(s.Sky);
+
+				}
+				else if (LevelType == 1) {
+					tempText.setTexture(s.SkyUG);
+
+				}
+				Enemy tempGoomba(d, h, 0, s);
+				break;
+
+			}
 
 			case '5':
 				tempText.setTexture(s.PipeTL);
@@ -235,7 +318,14 @@ void Board::fillSubBoard() {
 				tempText.setTexture(s.PipeBR);
 				break;
 			case '9':
-				tempText.setTexture(s.OtherBrick);
+				if (LevelType == 0) {
+					tempText.setTexture(s.OtherBrick);
+
+				}
+				else if (LevelType == 1) {
+					tempText.setTexture(s.OtherBrickUG);
+
+				}
 				break;
 			case 'a':
 				tempText.setTexture(s.Flagpole);
@@ -249,14 +339,14 @@ void Board::fillSubBoard() {
 			case 'd':
 				tempText.setTexture(s.FlagL);
 				break;
-			case 'e': {
+			case 'e': 
 				tempText.setTexture(s.LuckyBlockPU);
 
 				break;
 			case 'f':
 				tempText.setTexture(s.Coin);
 				break;
-			}
+			
 			case 'g':
 				tempText.setTexture(s.PipeTLD);
 				break;
@@ -275,6 +365,46 @@ void Board::fillSubBoard() {
 			case 'l':
 				tempText.setTexture(s.PipeBRSW);
 				break;
+			case 'm':
+				tempText.setTexture(s.TreeStemRight);
+				break;
+			case 'n':
+				tempText.setTexture(s.TreeStemLeft);
+				break;
+			case 'o':
+				tempText.setTexture(s.TreeStem);
+				break;
+			case 'p':
+				tempText.setTexture(s.Platform);
+				break;
+			case 'q':
+				tempText.setTexture(s.Tree);
+				break;
+			case 'r':
+				tempText.setTexture(s.TreeLeft);
+				break;
+			case 's':
+				tempText.setTexture(s.TreeRight);
+				break;
+			case 't':
+				tempText.setTexture(s.Lava);
+				break;
+			case 'u':
+				tempText.setTexture(s.LavaBase);
+				break;
+			case 'v':
+				tempText.setTexture(s.Axe);
+				break;
+			case 'w':
+				tempText.setTexture(s.Chain);
+				break;
+			case 'x':
+				tempText.setTexture(s.CastleGround);
+				break;
+			case 'y':
+				tempText.setTexture(s.BreakableGround);
+			case 'z':
+				tempText.setTexture(s.CoinedLB);
 			default:
 				tempText.setTexture(s.Sky);
 				break;
@@ -285,7 +415,7 @@ void Board::fillSubBoard() {
 		std::cout << std::endl;
 	}
 }
-void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown) {
+void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown, int Level) {
 	std::vector<sf::Sprite> notSky;
 	for (int i = 0; i < std::size(sprites); i++) {
 		for (int f = 0; f < std::size(sprites[i]); f++) {
@@ -323,11 +453,14 @@ void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite P
 			Cloud2[i].setPosition({ 21.f * 16.f + (i * 48.f * 16), 24.f });
 			Cloud3[i].setPosition({ 29.f * 16.f + (i * 48.f * 16), 40.f });
 			Cloud4[i].setPosition({ 39.f * 16.f + (i * 48.f * 16), 24.f });
-			window.draw(Hills[i]);
-			window.draw(Bush3[i]);
-			window.draw(SmallHill[i]);
-			window.draw(Bush1[i]);
-			window.draw(Bush2[i]);
+			if (Level != 3) {
+				window.draw(Hills[i]);
+				window.draw(Bush3[i]);
+				window.draw(SmallHill[i]);
+				window.draw(Bush1[i]);
+				window.draw(Bush2[i]);
+			}
+
 			window.draw(Cloud1[i]);
 			window.draw(Cloud2[i]);
 			window.draw(Cloud3[i]);
@@ -340,6 +473,6 @@ void Board::InterpretBoard(sf::RenderWindow &window, int levelType, sf::Sprite P
 		window.draw(notSky[i]);
 	}
 }
-void Board::startBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown) {
-	InterpretBoard(window, levelType, Powerup, shape, goingDown);
+void Board::startBoard(sf::RenderWindow &window, int levelType, sf::Sprite Powerup, sf::Sprite shape, bool goingDown, int Level) {
+	InterpretBoard(window, levelType, Powerup, shape, goingDown, Level);
 }

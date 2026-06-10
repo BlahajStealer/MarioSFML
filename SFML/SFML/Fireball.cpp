@@ -18,7 +18,7 @@ void Fireball::moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>
 
     for (int i = startY; i <= endY; i++) {
         for (int f = startX; f <= endX; f++) {
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.Coin) {
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.Coin || &Sprites[i][f].getTexture() == &s.TreeStem) {
                 continue;
             }
 
@@ -28,8 +28,7 @@ void Fireball::moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>
                 bool wasOutsideX = (prevRight <= spriteBounds.position.x || prevPos.x >= (spriteBounds.position.x + spriteBounds.size.x));
 
                 if (wasOutsideX) {
-                    fb.setPosition({ prevPos.x, fb.getPosition().y });
-                    dir = -dir;
+                    Kill = true;
                     break;
                 }
             }
@@ -37,7 +36,7 @@ void Fireball::moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>
     }
 
     prevPos = fb.getPosition();
-    fb.move({ 0, 2.2f * ydir });
+    fb.move({ 0, 2.5f * ydir });
     shapeBounds = fb.getGlobalBounds();
 
     tileX = static_cast<int>(fb.getPosition().x / 16.f);
@@ -49,7 +48,7 @@ void Fireball::moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>
 
     for (int i = startY; i <= endY; i++) {
         for (int f = startX; f <= endX; f++) {
-            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.Coin) {
+            if (&Sprites[i][f].getTexture() == &s.Sky || &Sprites[i][f].getTexture() == &s.SkyUG || &Sprites[i][f].getTexture() == &s.Coin || &Sprites[i][f].getTexture() == &s.TreeStem) {
                 continue;
             }
             else {
@@ -59,9 +58,8 @@ void Fireball::moveFireball(sprite& s, const std::vector<std::vector<sf::Sprite>
                     bool wasAbove = (previousTop + shapeBounds.size.y) <= spriteBounds.position.y;
 
                     if (wasAbove) {
-                        if (MaxHeight == 0) {
-                            MaxHeight = fb.getPosition().y - 20;
-                        }
+                        MaxHeight = fb.getPosition().y - 20;
+                        
                         fb.setPosition({ fb.getPosition().x, prevPos.y });
                         ydir = -ydir;
                         break;

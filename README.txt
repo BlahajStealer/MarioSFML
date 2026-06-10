@@ -15,4 +15,4 @@ There should be no errors within the project now.
 
 //Limitations of the project
 
-The only enemy is a Goomba unlike the original game. There is also a lack of a warp pipe in the second level and as it stands that is the final level in the project. If you go through the pipe you will end up in the 1-1 warp room and when you leave the game will make the second level the overworld theme and you will be stuck in the floor. Some bugs occur that I couldnt fix in time. 2 Player mode does nothing, it was just to mimic the original. Everything has been redrawn from scratch which means some colors are off.
+The only enemy is a Goomba unlike the original game. There is also a lack of a warp pipe in the second level. Some bugs occur that I couldnt fix in time. 2 Player mode does nothing, it was just to mimic the original. Everything has been redrawn from scratch which means some colors are off.
